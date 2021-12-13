@@ -92,3 +92,4 @@ Things you may want to cover:
 - has_many   :records
 - belongs_to :users
 - belongs_to :records
+
