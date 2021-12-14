@@ -28,12 +28,14 @@ Things you may want to cover:
 
 ## users テーブル
 
-| Column                | Type        | Option      |
-| --------------------- | ----------- | ----------- |
-| name                  | string      | null: false |
-| email                 | string      | null: false |
-| encrypted_password    | string      | null: false |
-| password_confirmation | string      | null: false |
+| Column                | Type        | Option                   |
+| --------------------- | ----------- | ------------------------ |
+| nickname              | string      | null: false              |
+| email                 | string      | null: false unique: true |
+| encrypted_password    | string      | null: false              |
+| name                  | string      | null: false              |
+| name_reading          | string      | null: false              |
+| birthday              | integer     | null: false              |
 
 ### Association
 
@@ -45,50 +47,51 @@ Things you may want to cover:
 
 | Column       | Type       | Option      |
 | ------------ | ---------- | ----------- |
-| image        |            | null: false |
 | product_name | string     | null: false |
 | content      | text       | null: false |
-| category     | references | null: false |
-| status       | references | null: false |
-| postage      | references | null: false |
-| area         | references | null: false |
-| day          | references | null: false |
+| category_id  | integer    | null: false |
+| status_id    | integer    | null: false |
+| postage_id   | integer    | null: false |
+| area_id      | integer    | null: false |
+| day_id       | integer    | null: false |
 | price        | string     | null: false |
+| user         | references | foreign_key |
 
 ### Association
 
-- belongs_to :users
-- belongs_to :records
+- belongs_to :user
+- belongs_to :record
 
 ## records テーブル
 
 | Column       | Type       | Option      |
 | ------------ | ---------- | ----------- |
 | product_name | string     | null: false |
-| image        |            | null: false |
-| price        | string     | null: false |
-|postage       | references | null: false |
+| content      | text       | null: false |
+| category_id  | integer    | null: false |
+| user         | references | foreign_key |
 
 ### Association
 
 - has_many   :products
 - has_one    :destinations
-- belongs_to :users
+- belongs_to :user
 
 
-## destinations テーブル
+## destinations テ-ブル
 
 | Column         | Type       | Option      |
 | -------------- | ---------- | ----------- |
-| postcode       | references | null: false |
-| prefecture     | references | null: false |
-| municipalities | references | null: false |
-| address        | references | null: false |
+| postcode       | string     | null: false |
+| prefecture     | string     | null: false |
+| municipalities | string     | null: false |
+| address        | string     | null: false |
 | building       | string     |             |
 | tel            | string     | null: false |
+| record         | references | foreign_key |
 
 ### Association
 
 - has_many   :records
-- belongs_to :users
-- belongs_to :records
+- belongs_to :user
+- belongs_to :record
