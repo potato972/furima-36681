@@ -45,17 +45,17 @@ Things you may want to cover:
 
 ## products テーブル
 
-| Column       | Type       | Option      |
-| ------------ | ---------- | ----------- |
-| product_name | string     | null: false |
-| content      | text       | null: false |
-| category_id  | integer    | null: false |
-| status_id    | integer    | null: false |
-| postage_id   | integer    | null: false |
-| area_id      | integer    | null: false |
-| day_id       | integer    | null: false |
-| price        | string     | null: false |
-| user         | references | foreign_key |
+| Column       | Type       | Option           |
+| ------------ | ---------- | ---------------- |
+| product_name | string     | null: false      |
+| content      | text       | null: false      |
+| category_id  | integer    | null: false      |
+| status_id    | integer    | null: false      |
+| postage_id   | integer    | null: false      |
+| area_id      | integer    | null: false      |
+| day_id       | integer    | null: false      |
+| price        | string     | null: false      |
+| user         | references | foreign_key:true |
 
 ### Association
 
@@ -64,12 +64,12 @@ Things you may want to cover:
 
 ## records テーブル
 
-| Column       | Type       | Option      |
-| ------------ | ---------- | ----------- |
-| product_name | string     | null: false |
-| content      | text       | null: false |
-| category_id  | integer    | null: false |
-| user         | references | foreign_key |
+| Column       | Type       | Option           |
+| ------------ | ---------- | ---------------- |
+| product_name | string     | null: false      |
+| content      | text       | null: false      |
+| category_id  | integer    | null: false      |
+| user         | references | foreign_key:true |
 
 ### Association
 
@@ -80,15 +80,15 @@ Things you may want to cover:
 
 ## destinations テ-ブル
 
-| Column         | Type       | Option      |
-| -------------- | ---------- | ----------- |
-| postcode       | string     | null: false |
-| prefecture     | string     | null: false |
-| municipalities | string     | null: false |
-| address        | string     | null: false |
-| building       | string     |             |
-| tel            | string     | null: false |
-| record         | references | foreign_key |
+| Column         | Type       | Option           |
+| -------------- | ---------- | ---------------- |
+| postcode       | string     | null: false      |
+| prefecture     | string     | null: false      |
+| municipalities | string     | null: false      |
+| address        | string     | null: false      |
+| building       | string     |                  |
+| tel            | string     | null: false      |
+| record         | references | foreign_key:true |
 
 ### Association
 
