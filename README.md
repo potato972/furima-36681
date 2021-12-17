@@ -28,20 +28,22 @@ Things you may want to cover:
 
 ## users テーブル
 
-| Column                | Type        | Option                   |
-| --------------------- | ----------- | ------------------------ |
-| nickname              | string      | null: false              |
-| email                 | string      | null: false unique: true |
-| encrypted_password    | string      | null: false              |
-| name                  | string      | null: false              |
-| name_reading          | string      | null: false              |
-| birthday              | integer     | null: false              |
+| Column                | Type    | Option                   |
+| --------------------- | ------- | ------------------------ |
+| nickname              | string  | null: false              |
+| email                 | string  | null: false unique: true |
+| encrypted_password    | string  | null: false              |
+| last_name             | string  | null: false              |
+| first_name            | string  | null: false              |
+| last_name_reading     | string  | null: false              |
+| first_name_reading    | string  | null: false              |
+| birthday              | data    | null: false              |
 
 ### Association
 
 - has_many :products
 - has_many  :records
-- has_one  :destinations
+- has_one  :destination
 
 ## products テーブル
 
@@ -54,13 +56,13 @@ Things you may want to cover:
 | postage_id   | integer    | null: false      |
 | area_id      | integer    | null: false      |
 | day_id       | integer    | null: false      |
-| price        | string     | null: false      |
+| price        | int        | null: false      |
 | user         | references | foreign_key:true |
 
 ### Association
 
+- has_one :record
 - belongs_to :user
-- belongs_to :record
 
 ## records テーブル
 
@@ -70,11 +72,11 @@ Things you may want to cover:
 | content      | text       | null: false      |
 | category_id  | integer    | null: false      |
 | user         | references | foreign_key:true |
+| product      | references | foreign_key:true |
 
 ### Association
 
-- has_many   :products
-- has_one    :destinations
+- belongs_to :product
 - belongs_to :user
 
 
@@ -82,8 +84,8 @@ Things you may want to cover:
 
 | Column         | Type       | Option           |
 | -------------- | ---------- | ---------------- |
-| postcode       | string     | null: false      |
-| prefecture     | string     | null: false      |
+| post_code      | string     | null: false      |
+| prefecture     | integer    | null: false      |
 | municipalities | string     | null: false      |
 | address        | string     | null: false      |
 | building       | string     |                  |
@@ -91,7 +93,3 @@ Things you may want to cover:
 | record         | references | foreign_key:true |
 
 ### Association
-
-- has_many   :records
-- belongs_to :user
-- belongs_to :record
