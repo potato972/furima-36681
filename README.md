@@ -41,14 +41,14 @@ Things you may want to cover:
 
 ### Association
 
-- has_many :products
+- has_many :items
 - has_many  :records
 
-## products テーブル
+## items テーブル
 
 | Column       | Type       | Option                        |
 | ------------ | ---------- | ----------------------------- |
-| product_name | string     | null: false                   |
+| item_name | string     | null: false                   |
 | content      | text       | null: false                   |
 | category_id  | integer    | null: false                   |
 | status_id    | integer    | null: false                   |
@@ -73,7 +73,7 @@ Things you may want to cover:
 ### Association
 
 - has_one :destination
-- belongs_to :product
+- belongs_to :item
 - belongs_to :user
 
 
