@@ -77,12 +77,28 @@ RSpec.describe Item, type: :model do
       end
       it "各activehashはidが１では登録できない" do
         @item.category_id = '1'
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Category can't be blank")
+      end
+      it "statusで「---」が選択されている場合は出品できない" do
         @item.status_id = '1'
-        @item.postage_id = '1'
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Status can't be blank")
+      end
+      it "postageで「---」が選択されている場合は出品できない" do
+      @item.postage_id = '1'
+      @item.valid?
+      expect(@item.errors.full_messages).to include("Postage can't be blank")
+      end
+      it "areaで「---」が選択されている場合は出品できない" do
         @item.area_id = '1'
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Area can't be blank")
+      end
+      it "dayで「---」が選択されている場合は出品できない" do
         @item.day_id = '1'
         @item.valid?
-        expect(@item.errors.full_messages).to include("Category can't be blank", "Status can't be blank", "Postage can't be blank", "Area can't be blank", "Day can't be blank")
+        expect(@item.errors.full_messages).to include("Day can't be blank")
       end
       it "ユーザーが紐づいていなければ登録できない" do
         @item.user = nil
