@@ -75,7 +75,7 @@ RSpec.describe Item, type: :model do
         @item.valid?
         expect(@item.errors.full_messages).to include("Price must be an integer")
       end
-      it "各activehashはidが１では登録できない" do
+      it "categoryで「---」が選択されている場合は出品できない" do
         @item.category_id = '1'
         @item.valid?
         expect(@item.errors.full_messages).to include("Category can't be blank")
