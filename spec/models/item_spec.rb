@@ -4,11 +4,7 @@ RSpec.describe Item, type: :model do
 
   before do
     @item = FactoryBot.build(:item)
-    category_id = Category.find_by(name: 'その他').id
-    status_id = Status.find_by(name: '全体的に状態が悪い').id
-    postage_id = Postage.find_by(name: '着払い（購入者負担）').id
-    area_id = Area.find_by(name: '北海道').id
-    day_id = Day.find_by(name: '1~2日で発送').id
+    @item.image = fixture_file_upload('app/assets/images/test_image3.png')
   end
 
   describe '新規出品登録' do
@@ -69,6 +65,30 @@ RSpec.describe Item, type: :model do
         @item.valid?
         expect(@item.errors.full_messages).to include("Price is not a number")
       end
+      it "imageは空では登録できない" do
+        @item.image = nil
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Image can't be blank")
+      end
+      it "金額は10_000_000以上では登録できない" do
+        @item.price = '10_000_000'
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Price must be an integer")
+      end
+      it "各activehashはidが１では登録できない" do
+        @item.category_id = '1'
+        @item.status_id = '1'
+        @item.postage_id = '1'
+        @item.area_id = '1'
+        @item.day_id = '1'
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Category can't be blank", "Status can't be blank", "Postage can't be blank", "Area can't be blank", "Day can't be blank")
+      end
+      it "ユーザーが紐づいていなければ登録できない" do
+        @item.user = nil
+        @item.valid?
+        expect(@item.errors.full_messages).to include("User must exist")
+      end 
     end
   end
 end

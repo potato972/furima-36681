@@ -6,7 +6,10 @@ class Item < ApplicationRecord
   belongs_to :area
   belongs_to :day
   has_one_attached :image
+  belongs_to :user
 
+
+  validates :image, presence: true
   validates :item_name, presence: true
   validates :content, presence: true
   validates :category_id, presence: true
@@ -15,9 +18,7 @@ class Item < ApplicationRecord
   validates :postage_id, presence: true
   validates :area_id, presence: true
   validates :day_id, presence: true
-  validates :price, presence: true, format: { with: /\A[0-9]+\Z/ } 
+  validates :price, presence: true, format: { with: /\A[0-9]+\Z/ }
     validates :price, numericality: {only_integer: true, greater_than_or_equal_to: 300, less_than_or_equel_to: 9_999_999 },
-                      presence: { message: "can't be blank"}
-  belongs_to :user
-  
+                      presence: { message: "can't be blank"}  
 end
