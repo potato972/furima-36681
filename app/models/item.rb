@@ -15,9 +15,9 @@ class Item < ApplicationRecord
   validates :postage_id, presence: true
   validates :area_id, presence: true
   validates :day_id, presence: true
-  validates :price, presence: true, format: { with: /\A[0-9]+\Z/ } do
-    validates :price, numericality: {only_integer: true, greater_then_or_equal_to: 300, less_then_or_equel_to: 9_999_999 },
+  validates :price, presence: true, format: { with: /\A[0-9]+\Z/ } 
+    validates :price, numericality: {only_integer: true, greater_than_or_equal_to: 300, less_than_or_equel_to: 9_999_999 },
                       presence: { message: "can't be blank"}
   belongs_to :user
-  end
+  
 end
