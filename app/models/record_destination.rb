@@ -3,8 +3,6 @@ class RecordDestination
   attr_accessor :post_code, :area_id, :municipalities, :address, :building, :tel, :item_id, :user_id
 
   with_options presence: true do
-    validates :item_id
-    validates :user_id
     validates :post_code, format: {with: /\A[0-9]{3}-[0-9]{4}\z/ }
     validates :area_id, numericality: {other_than: 1, message: "can't be blank"}
     validates :municipalities
