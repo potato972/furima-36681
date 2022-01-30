@@ -1,5 +1,6 @@
 class RecordDestination
   include ActiveModel::Model
+  attr_accessor :token
   attr_accessor :post_code, :area_id, :municipalities, :address, :building, :tel, :item_id, :user_id
 
   with_options presence: true do

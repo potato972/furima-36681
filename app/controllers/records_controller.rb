@@ -10,6 +10,12 @@ class RecordsController < ApplicationController
     @item = Item.find(params[:item_id])
     @record_destination = RecordDestination.new(record_params)
     if @record_destination.valid?
+      Payjp.api_key = "sk_test_b1ca474696a5b883834e3654"
+      Payjp::Charge.create(
+        amount: @item.price,
+        card: record_params[:token],
+        currency: 'jpy'
+      )
       @record_destination.save
       redirect_to root_path
     else
@@ -22,6 +28,6 @@ class RecordsController < ApplicationController
   private
 
   def record_params
-    params.require(:record_destination).permit(:post_code, :area_id, :municipalities, :address, :building, :tel).merge(user_id: current_user.id, item_id: @item.id)
+    params.require(:record_destination).permit(:post_code, :area_id, :municipalities, :address, :building, :tel).merge(user_id: current_user.id, item_id: params[:item_id], token: params[:token])
   end
 end
