@@ -4,6 +4,10 @@ class RecordsController < ApplicationController
   def index
     @item = Item.find(params[:item_id])
     @record_destination = RecordDestination.new
+    if @item.record 
+      redirect_to root_path
+    end
+
   end
 
   def create
@@ -34,4 +38,5 @@ class RecordsController < ApplicationController
       currency: 'jpy'
     )
   end
+
 end
