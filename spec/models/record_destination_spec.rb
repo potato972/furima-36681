@@ -7,7 +7,7 @@ RSpec.describe RecordDestination, type: :model do
 
   describe '商品購入機能' do
     context '商品購入ができる場合' do
-      it 'post_code,area_id,municipalities,address,building,telが存在すれば購入できる' do
+      it 'post_code,area_id,municipalities,address,building,telとトークンが存在すれば購入できる' do
         expect(@record_destination).to be_valid
       end
     end
@@ -19,9 +19,9 @@ RSpec.describe RecordDestination, type: :model do
         expect(@record_destination.errors.full_messages).to include("Post code can't be blank")
       end
       it 'post_codeが3桁ハイフン4桁の半角数字以外では購入できない' do
-        @record_destination.post_code ='9999999'
+        @record_destination.post_code = '9999999'
         @record_destination.valid?
-        expect(@record_destination.errors.full_messages).to include("Post code is invalid")
+        expect(@record_destination.errors.full_messages).to include('Post code is invalid')
       end
       it 'area_idが空では購入できない' do
         @record_destination.area_id = ''
@@ -51,7 +51,12 @@ RSpec.describe RecordDestination, type: :model do
       it 'telが10桁以上11桁以内の半角数値以外では購入できない' do
         @record_destination.tel = '９９９９９９９９９'
         @record_destination.valid?
-        expect(@record_destination.errors.full_messages).to include("Tel is invalid")
+        expect(@record_destination.errors.full_messages).to include('Tel is invalid')
+      end
+      it 'トークンが空では購入でいない' do
+        @record_destination.token = nil
+        @record_destination.valid?
+        expect(@record_destination.errors.full_messages).to include("Token can't be blank")
       end
     end
   end

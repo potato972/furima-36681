@@ -133,8 +133,8 @@
             <%= link_to item_path(item.id) do %>
               <div class='item-img-content'>
                 <%= image_tag item.image, class: "item-img" %>
-                <% if @items.present? %>
-                  <div class='sold-out'>
+                <% if item.record.present? %>
+                  <div class="sold-out">
                     <span>Sold Out!!</span>
                   </div>
                 <% end %>
@@ -155,7 +155,6 @@
           </li>
         <% end %>
     </ul>
-     
     <% else %>
       <li class='list'>
         <%= link_to '#' do %>
