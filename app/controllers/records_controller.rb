@@ -1,10 +1,12 @@
 class RecordsController < ApplicationController
   before_action :authenticate_user!
+  before_action :contributor_confirmation, only: [:index]
+
 
   def index
     @item = Item.find(params[:item_id])
     @record_destination = RecordDestination.new
-    if @item.record 
+    if @item.record
       redirect_to root_path
     end
 
@@ -37,6 +39,11 @@ class RecordsController < ApplicationController
       card: record_params[:token],
       currency: 'jpy'
     )
+  end
+
+  def contributor_confirmation
+    @item = Item.find(params[:item_id])
+    redirect_to root_path unless current_user.id == @item.user_id
   end
 
 end
