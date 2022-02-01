@@ -41,11 +41,13 @@ class RecordsController < ApplicationController
   end
 
   def set_item
-    @item = Item.find(params[:id])
+    @item = Item.find(params[:item_id])
   end
 
   def contributor_confirmation
-    redirect_to root_path unless current_user.id == @item.user_id
+    if current_user.id == @item.user_id
+      redirect_to root_path
+    end
   end
 
 end
