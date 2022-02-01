@@ -1,10 +1,10 @@
 class RecordsController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_item, only: [:index, :create]
   before_action :contributor_confirmation, only: [:index]
 
 
   def index
-    @item = Item.find(params[:item_id])
     @record_destination = RecordDestination.new
     if @item.record
       redirect_to root_path
@@ -13,7 +13,6 @@ class RecordsController < ApplicationController
   end
 
   def create
-    @item = Item.find(params[:item_id])
     @record_destination = RecordDestination.new(record_params)
     if @record_destination.valid?
       pay_item
@@ -41,8 +40,11 @@ class RecordsController < ApplicationController
     )
   end
 
+  def set_item
+    @item = Item.find(params[:id])
+  end
+
   def contributor_confirmation
-    @item = Item.find(params[:item_id])
     redirect_to root_path unless current_user.id == @item.user_id
   end
 
