@@ -2,12 +2,20 @@ require 'rails_helper'
 
 RSpec.describe RecordDestination, type: :model do
   before do
-    @record_destination = FactoryBot.build(:record_destination)
+    @user = FactoryBot.create(:user)
+    @item = FactoryBot.create(:item)
+    @record_destination = FactoryBot.build(:record_destination, user_id: @user.id, item_id: @item.id)
+
+    sleep 0.5
   end
 
   describe '商品購入機能' do
     context '商品購入ができる場合' do
       it 'post_code,area_id,municipalities,address,building,telとトークンが存在すれば購入できる' do
+        expect(@record_destination).to be_valid
+      end
+      it 'buildingが空でも購入できる' do
+        @record_destination.building = ''
         expect(@record_destination).to be_valid
       end
     end
@@ -48,8 +56,18 @@ RSpec.describe RecordDestination, type: :model do
         @record_destination.valid?
         expect(@record_destination.errors.full_messages).to include("Tel can't be blank")
       end
-      it 'telが10桁以上11桁以内の半角数値以外では購入できない' do
-        @record_destination.tel = '９９９９９９９９９'
+      it 'telが9桁以下では購入できない' do
+        @record_destination.tel = '999999999'
+        @record_destination.valid?
+        expect(@record_destination.errors.full_messages).to include('Tel is invalid')
+      end
+      it 'telが12桁以上では購入できない' do
+        @record_destination.tel = '999999999999'
+        @record_destination.valid?
+        expect(@record_destination.errors.full_messages).to include('Tel is invalid')
+      end
+      it 'telに半角数字以外が含まれている場合は購入できない' do
+        @record_destination.tel = '９９９９９９９９９９９'
         @record_destination.valid?
         expect(@record_destination.errors.full_messages).to include('Tel is invalid')
       end
@@ -57,6 +75,16 @@ RSpec.describe RecordDestination, type: :model do
         @record_destination.token = nil
         @record_destination.valid?
         expect(@record_destination.errors.full_messages).to include("Token can't be blank")
+      end
+      it 'userが紐づいていなければ購入できない' do
+        @record_destination.user_id = nil
+        @record_destination.valid?
+        expect(@record_destination.errors.full_messages).to include("User can't be blank")
+      end
+      it 'itemが紐づいていなければ購入できない' do
+        @record_destination.item_id = nil
+        @record_destination.valid?
+        expect(@record_destination.errors.full_messages).to include("Item can't be blank")
       end
     end
   end

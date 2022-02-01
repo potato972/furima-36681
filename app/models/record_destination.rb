@@ -8,7 +8,9 @@ class RecordDestination
     validates :municipalities
     validates :address
     validates :tel, format: { with: /\A\d{10}\z|\A\d{11}\z/ }
-    validates :token, presence: true
+    validates :token
+    validates :user_id
+    validates :item_id
   end
 
   def save
