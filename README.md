@@ -68,7 +68,7 @@ Things you may want to cover:
 | Column       | Type       | Option                        |
 | ------------ | ---------- | ----------------------------- |
 | user         | references | null: false, foreign_key:true |
-| product      | references | null: false, foreign_key:true |
+| item         | references | null: false, foreign_key:true |
 
 ### Association
 
